@@ -141,9 +141,6 @@ public class FXMLController
 				this.txtResult.clear();
 				this.txtResult.appendText("\nSIMULAZIONE IN CORSO... ");
 				this.model.simula(year, month, day, numPoliziotti); 
-				
-				
-				
 			}
 		}
 		catch (Exception e)
