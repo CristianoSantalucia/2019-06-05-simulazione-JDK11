@@ -4,12 +4,12 @@ import java.time.LocalDateTime;
 
 public class Evento implements Comparable<Evento>
 {
-	public enum tipoEvento {CHIAMATA, GESTITO}; 
+	public enum eventType {CHIAMATA, GESTITO}; 
 	
 	private LocalDateTime ora; 
 	private Vertice distretto;
 	private String category; 
-	private tipoEvento tipoEvento;
+	private eventType tipoEvento;
 	 
 	public LocalDateTime getOra()
 	{
@@ -26,13 +26,13 @@ public class Evento implements Comparable<Evento>
 		return category;
 	}
 
-	public tipoEvento getTipoEvento()
+	public eventType getTipoEvento()
 	{
 		return tipoEvento;
 	}
 
 	public Evento(LocalDateTime ora, Vertice distretto, String category,
-			it.polito.tdp.crimes.model.Evento.tipoEvento tipoEvento)
+			it.polito.tdp.crimes.model.Evento.eventType tipoEvento)
 	{
 		this.ora = ora;
 		this.distretto = distretto;
@@ -42,7 +42,9 @@ public class Evento implements Comparable<Evento>
 
 	@Override public String toString()
 	{
-		return tipoEvento +  " " + ora + " nel distretto: " + distretto + ", num: " + distretto.getNumPoliziotti() + "; cat: " + category;
+		if(this.tipoEvento == eventType.CHIAMATA)
+				return tipoEvento +  " " + ora + " nel distretto: " + distretto + ", num: " + distretto.getNumPoliziotti() + "; cat: " + category;
+		else return tipoEvento +  " " + ora + " nel distretto: " + distretto + ", num: " + (distretto.getNumPoliziotti()+1) + "; cat: " + category;
 	}
 
 	@Override public int compareTo(Evento other)

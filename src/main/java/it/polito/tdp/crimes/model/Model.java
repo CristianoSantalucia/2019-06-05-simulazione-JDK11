@@ -18,7 +18,7 @@ import com.javadocmd.simplelatlng.LatLngTool;
 import com.javadocmd.simplelatlng.util.LengthUnit;
 
 import it.polito.tdp.crimes.db.EventsDao;
-import it.polito.tdp.crimes.model.Evento.tipoEvento;
+import it.polito.tdp.crimes.model.Evento.eventType;
 
 public class Model
 {
@@ -128,7 +128,7 @@ public class Model
 
 			ArrayList<Event> events = new ArrayList<>(this.dao.listEvents(year, month, day));
 			for(Event event : events)
-				this.eventi.add(new Evento(event.getReported_date(), this.distretti.get(event.getDistrict_id()-1), event.getOffense_category_id(), tipoEvento.CHIAMATA));
+				this.eventi.add(new Evento(event.getReported_date(), this.distretti.get(event.getDistrict_id()-1), event.getOffense_category_id(), eventType.CHIAMATA));
 			
 			while(!this.eventi.isEmpty())
 			{
@@ -147,7 +147,7 @@ public class Model
 	{
 		System.out.println("\n" + e);
 
-		if(e.getTipoEvento().equals(tipoEvento.CHIAMATA))
+		if(e.getTipoEvento().equals(eventType.CHIAMATA))
 		{
 			//selezione poliziotto piu vicino 
 			Vertice chiamata = e.getDistretto(); 
@@ -200,9 +200,9 @@ public class Model
 				if(prob<.5)
 					tempoGestione = this.TEMPO_STRAORDINARIO; 
 			}
-			this.eventi.add(new Evento(oraArrivo.plus(Duration.ofHours(tempoGestione)), chiamata, e.getCategory(), tipoEvento.GESTITO));
+			this.eventi.add(new Evento(oraArrivo.plus(Duration.ofHours(tempoGestione)), chiamata, e.getCategory(), eventType.GESTITO));
 		}
-		else if(e.getTipoEvento().equals(tipoEvento.GESTITO))
+		else if(e.getTipoEvento().equals(eventType.GESTITO))
 		{
 			 e.getDistretto().aumentaPoliziotti();
 		}
